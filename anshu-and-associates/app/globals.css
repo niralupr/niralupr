@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+/*
+  Design tokens. These are PLACEHOLDERS, deliberately neutral.
+  They get replaced wholesale once the brand brief lands.
+  Rule: no component may hardcode a colour. Everything reads a token.
+*/
+@theme {
+  --color-ground: #f7f6f3;
+  --color-surface: #ffffff;
+  --color-border: #e4e1da;
+  --color-ink: #1c1b19;
+  --color-ink-soft: #4a4741;
+  --color-muted: #8a857c;
+  --color-accent: #1c1b19;
+
+  --font-display: Georgia, "Times New Roman", serif;
+  --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+html {
+  background: var(--color-ground);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+body { font-family: var(--font-body); }
+
+/* Lenis requires this to manage scroll correctly */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
