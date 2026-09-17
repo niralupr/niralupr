@@ -17,19 +17,25 @@ import { SITE_NAME } from "@/lib/site";
  * Keeping peak well above flat is what lets the photograph stay legible in the
  * open upper area while the type below it still has solid ground.
  *
- * Tuned against the entrance photograph, which is a mid-to-dark frame: board
- * -formed concrete, grey stone paving, one warm timber screen, and a single
- * bright daylight opening left of centre. Three things follow from that.
- * Blur is low, because the concrete is already a soft even field and more
- * blur only destroys the timber slats, which are the most legible thing in
- * the frame. Peak is lower than a default would be, because the base of the
- * image is already dark paving and does not need much help. Flat is higher
- * than a default would be, and that is entirely to hold down the bright
- * opening, which is the one place white text could drop out.
+ * These are measured, not judged. The photograph carries one bright daylight
+ * opening left of centre which lands squarely under the byline and the Studio
+ * column, where white text would otherwise drop out: unscrimmed, that region
+ * reads 224 against the ~114 a 14px white label needs for 4.5:1 contrast.
+ *
+ * Moving the crop was tried first, since composition is a cheaper fix than
+ * opacity, but the only anchor that clears the opening is the very bottom of
+ * the frame, which is featureless paving and stops the footer reading as a
+ * building at all. So the scrim carries it instead, at the lightest setting
+ * that passes: 42% of the photograph survives, and the timber screen and the
+ * opening both still read.
+ *
+ * Verified at 1024, 1280 and 1536 wide, worst case 108. If the photograph is
+ * ever swapped, re-measure rather than assuming these carry over.
  */
-const blur = 3;
-const scrimFlat = 0.42;
-const scrimPeak = 0.66;
+const blur = 5;
+const scrimFlat = 0.54;
+const scrimPeak = 0.7;
+const scrimTop = 0.9;
 
 // Dark scrim with light text. The light-scrim variant was considered and is
 // wrong for this photograph: the frame is dark concrete, so a pale wash has
@@ -41,7 +47,7 @@ const scrimRGB = "18,16,13";
 // "/footer.jpg". The crop anchor below is already set for it.
 // Empty falls back to the tonal placeholder below, so the layout is already
 // final and swapping the image in changes nothing else.
-const defaultPhoto = "";
+const defaultPhoto = "/footer.jpg";
 
 const disciplines = [
   { label: "Interior Design", href: "/interior-design" },
@@ -83,7 +89,7 @@ export default function SiteFooter({ photo = defaultPhoto }: { photo?: string })
           backdropFilter: `blur(${blur}px)`,
           WebkitBackdropFilter: `blur(${blur}px)`,
           background: `linear-gradient(to bottom,
-            rgba(${scrimRGB},${(scrimFlat * 0.55).toFixed(3)}) 0%,
+            rgba(${scrimRGB},${(scrimFlat * scrimTop).toFixed(3)}) 0%,
             rgba(${scrimRGB},${(scrimFlat + (scrimPeak - scrimFlat) * 0.45).toFixed(3)}) 45%,
             rgba(${scrimRGB},${scrimPeak}) 100%)`,
         }}
