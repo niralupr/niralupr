@@ -1,4 +1,5 @@
 import ScrollProof from "@/components/ScrollProof";
+import SiteFooter from "@/components/SiteFooter";
 import { SITE_NAME } from "@/lib/site";
 
 export default function Home() {
@@ -24,11 +25,7 @@ export default function Home() {
 
       <ScrollProof />
 
-      <footer className="border-t border-(--color-border) px-6 py-8 md:px-14">
-        <p className="text-xs text-(--color-muted)">
-          Scaffold only. Not indexed.
-        </p>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }
