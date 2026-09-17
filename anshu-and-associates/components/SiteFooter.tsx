@@ -25,6 +25,11 @@ const scrimPeak = 0.72;
 // "250,249,245" and set the text colour token to the ink value.
 const scrimRGB = "18,16,13";
 
+// Drop the photograph at public/footer.jpg and set this to "/footer.jpg".
+// Empty falls back to the tonal placeholder below, so the layout is already
+// final and swapping the image in changes nothing else.
+const defaultPhoto = "";
+
 const disciplines = [
   { label: "Interior Design", href: "/interior-design" },
   { label: "Landscaping", href: "/landscaping" },
@@ -37,7 +42,7 @@ const studio = [
   { label: "Contact", href: "/contact" },
 ];
 
-export default function SiteFooter({ photo }: { photo?: string }) {
+export default function SiteFooter({ photo = defaultPhoto }: { photo?: string }) {
   return (
     <footer className="relative isolate min-h-[300px] overflow-hidden text-white">
       {photo ? (
